@@ -31,5 +31,39 @@ models:
       - name: first_paid_at
         description: "Время первой успешной оплаты; пусто, если оплат нет."
       - name: is_confirmed
-        description: "Подтверждённая покупка: статус paid и хотя бы одна успешная оплата."
+        description: '{{ doc("confirmed_order") }}'
         data_tests: [not_null]
+
+  - name: fct_order_items
+    description: "Факт: одна строка = один товар в заказе."
+    columns:
+      - name: order_id
+        description: "Номер заказа."
+        data_tests: [not_null]
+      - name: product_id
+        description: "Идентификатор товара."
+        data_tests: [not_null]
+      - name: line_amount
+        description: "Сумма по позиции (кол-во * цена - скидка)."
+        data_tests: [non_negative]
+
+  - name: dim_customers
+    description: "Измерение: клиенты, включая не купивших."
+    columns:
+      - name: customer_id
+        description: "Идентификатор клиента."
+        data_tests: [unique, not_null]
+
+  - name: dim_products
+    description: "Измерение: товары с иерархией категорий."
+    columns:
+      - name: product_id
+        description: "Идентификатор товара."
+        data_tests: [unique, not_null]
+
+  - name: dim_dates
+    description: "Измерение: календарь."
+    columns:
+      - name: date_day
+        description: "Дата (одна строка = один день)."
+        data_tests: [unique, not_null]

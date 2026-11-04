@@ -12,6 +12,7 @@ erDiagram
     dim_products ||--o{ fct_order_items : "product_id"
     dim_dates ||--o{ fct_order_items : "order_date"
     fct_orders ||--|{ fct_order_items : "order_id"
+    
 ### Витрины и их зернистость
 
 | Витрина | Зернистость | Бизнес-вопрос |
